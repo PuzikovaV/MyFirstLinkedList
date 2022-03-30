@@ -1,6 +1,8 @@
 using NUnit.Framework;
 using System.Collections;
 using LinkedList;
+using LinkedListTest.LinkedListTestSource;
+using System;
 
 namespace LinkedListTests
 {
@@ -30,60 +32,114 @@ namespace LinkedListTests
             Assert.AreEqual(expectedList, actualList);
         }
 
-    }
-
-    public class AddLastTestSource : IEnumerable
-    {
-        public IEnumerator GetEnumerator()
+        [TestCaseSource(typeof(TheListIsEmptyTestSource))]
+        public void AddByIndex_WhenListIsEmpty_ShouldExceptionTheListIsEmptyTest(int value, int index, LList list)
         {
-            int value = 5;
-            LList list = new LList(new int[]{ 8,9,6});
-            LList expectedList = new LList(new int[]{ 8,9,6,5});
-            yield return new object[] { value, list, expectedList };
+            Assert.Throws<Exception>(() => list.AddByIndex(value, index));
+        }
 
-            value = 1;
-            list = new LList(new int[] { 8 });
-            expectedList = new LList(new int[] { 8, 1 });
-            yield return new object[] { value, list, expectedList };
-            
-            value = 8;
-            list = new LList(new int[] { });
-            expectedList = new LList(new int[] { 8 });
-            yield return new object[] { value, list, expectedList };
+        [TestCaseSource(typeof(TheIndexOutOfRangeTestSource))]
+        public void AddByIndex_WhenIndexOutOfRange_ShouldExceptionOutOfRangeTest(int value, int index, LList list)
+        {
+            Assert.Throws<IndexOutOfRangeException>(() => list.AddByIndex(value, index));
+        }
 
+        [TestCaseSource(typeof(DeleteLastTestSource))]
+        public void DeleteLastTest(LList list, LList expectedList)
+        {
+            list.DeleteLast();
+            LList actualList = list;
+            Assert.AreEqual(expectedList, actualList);
+        }
+        
+        [Test]
+        public void DeleteLast_WhenListIsEmpty_ShouldExceptionTest()
+        {
+            LList list = new LList();
+            Assert.Throws<Exception>(()=>list.DeleteLast());
+        }
+
+        [TestCaseSource(typeof(DeleteFirstTestSource))]
+        public void DeleteFirstTest(LList list, LList expectedList)
+        {
+            list.DeleteFirst();
+            LList actualList = list;
+            Assert.AreEqual(expectedList, actualList);
+        }
+        
+        [Test]
+        public void DeleteFirst_WhenListIsEmpty_ShouldExceptionTest()
+        {
+            LList list = new LList();
+            Assert.Throws<Exception>(() => list.DeleteFirst());
+        }
+
+        [TestCaseSource(typeof(DeleteByIndexTestSource))]
+        public void DeleteByIndexTest(int index, LList list, LList expectedList)
+        {
+            list.DeleteByIndex(index);
+            LList actualList = list;
+            Assert.AreEqual(expectedList, actualList);
+        }
+
+        [TestCaseSource(typeof(TheListIsEmptyWithIndexTestSource))]
+        public void DeleteByIndex_WhenListIsEmpty_ShouldExceptionTest(int index, LList list)
+        {
+            Assert.Throws<Exception>(() => list.DeleteByIndex(index));
+        }
+
+        [TestCaseSource(typeof(TheIndexOutOfRangeWithIndexTestSource))]
+        public void DeleteByIndex_WhenIndexDoesNotExist_ShouldExceptionOutOFRangeTest(int index, LList list)
+        {
+            Assert.Throws<IndexOutOfRangeException>(() => list.DeleteByIndex(index));
+        }
+
+        [TestCaseSource(typeof(DeleteFewLastElementsTestSource))]
+        public void DeleteFewLastElementsTest(int amount, LList list, LList expectedList)
+        {
+            list.DeleteFewLastElements(amount);
+            LList actualList = list;
+            Assert.AreEqual(expectedList,actualList);
+        }
+
+        [TestCaseSource(typeof(WhenListIsEmptyWithAmountTestSource))]
+        public void DeleteFewLastElements_WhenListIsEmpty_ShouldExceptionTest (int amount, LList list)
+        {
+            Assert.Throws<Exception>(() => list.DeleteFewLastElements(amount));  
+        }
+        [TestCaseSource(typeof(WhenAmountMoreOrLessThenLengthTestSource))]
+        public void DleteFewLastElements_WhenAmountMoreOrLessThenLength_ShouldExceptionTest(int amount, LList list)
+        {
+            Assert.Throws<ArgumentOutOfRangeException>(()=>list.DeleteFewLastElements(amount)); 
+        }
+
+        [TestCaseSource(typeof(DeleteFewFirstElementsTestSource))]
+        public void DeleteFewFirstElementsTest(int amount, LList list, LList excpectedList)
+        {
+            list.DeleteFewFirstElements(amount);
+            LList actualList = list;
+            Assert.AreEqual(excpectedList,actualList);
+        }
+
+        [TestCaseSource(typeof(WhenListIsEmptyWithAmountTestSource))]
+        public void DeleteFewFirstElements_WhenListIsEmpty_ShouldExceptionTest(int amount, LList list)
+        {
+            Assert.Throws<Exception>(() => list.DeleteFewFirstElements(amount));
+        }
+
+        [TestCaseSource(typeof(WhenAmountMoreOrLessThenLengthTestSource))]
+        public void DleteFewFirstElements_WhenAmountMoreOrLessThenLength_ShouldExceptionTest(int amount, LList list)
+        {
+            Assert.Throws<ArgumentOutOfRangeException>(() => list.DeleteFewFirstElements(amount));
+        }
+
+        [TestCaseSource(typeof(DeleteFewElementsByIndexTestSource))]
+        public void DeleteFewElementsByIndexTest(int index, int amount, LList list, LList expectedList)
+        {
+            list.DeleteFewElementsByIndex(index, amount);
+            LList actualList=list;
+            Assert.AreEqual(expectedList,actualList);
         }
     }
-
-    public class AddFirstTestSource : IEnumerable
-    {
-        public IEnumerator GetEnumerator()
-        {
-            int value = 5;
-            LList list = new LList(new int[] { 8, 9, 6 });
-            LList expectedList = new LList(new int[] { 5, 8, 9, 6 });
-            yield return new object[] { value, list, expectedList };
-
-            value = 1;
-            list = new LList(new int[] { 8 });
-            expectedList = new LList(new int[] { 1, 8 });
-            yield return new object[] { value, list, expectedList };
-
-            value = 8;
-            list = new LList(new int[] { });
-            expectedList = new LList(new int[] { 8 });
-            yield return new object[] { value, list, expectedList };
-        }
-    }
-
-    public class AddByIndexTestSource : IEnumerable
-    {
-        public IEnumerator GetEnumerator()
-        {
-            int value = 6;
-            int index = 2;
-            LList list = new LList(new int[] { 1, 2, 10, 16, 20 });
-            LList expectedList = new LList(new int[] { 1, 2, 6, 10, 16, 20 });
-            yield return new object[] {value, index, list, expectedList };
-        }
-    }
+    
 }

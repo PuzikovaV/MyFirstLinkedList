@@ -21,7 +21,12 @@
 
             set
             {
-
+                Node crnt = _root;
+                for (int i = 1; i <= index; i++)
+                { 
+                    crnt=crnt.Next;
+                }
+                crnt.Value = value;
             }
         }
 
@@ -88,6 +93,7 @@
                 _tail.Next = new Node(value);
                 _tail = _tail.Next;
             }
+            Length++;
         }
 
         public void AddFirst(int value)
@@ -95,6 +101,8 @@
             Node crnt = new Node(value);
             crnt.Next = _root;
             _root = crnt;
+
+            Length++;
 
         }
 
@@ -104,19 +112,163 @@
             {
                 throw new Exception("The list is empty");
             }
-            Node crnt = _root;
-            for (int i = 1; i < index; i++)
+            if (index < 0 || index > Length - 1)
             {
-                crnt = crnt.Next;
+                throw new IndexOutOfRangeException();
             }
-            Node node = new Node(value);
-            node.Next = crnt.Next;
-            crnt.Next = node;
+            if (index == 0)
+            {
+                AddFirst(value);
+            }
+            else
+            {
+                Node crnt = _root;
+                for (int i = 1; i < index; i++)
+                {
+                    crnt = crnt.Next;
+                }
+                Node node = new Node(value);
+                node.Next = crnt.Next;
+                crnt.Next = node;
+            }
+
+            Length++;
+            
         }
 
         public void DeleteLast()
         {
-            _tail = null;
+            if(Length == 0)
+            {
+                throw new Exception("The list is empty");
+            }
+            Node crnt = _root;
+            for(int i=1; i<Length-1; i++)
+            {
+                crnt= crnt.Next;
+            }
+            crnt.Next = null;
+            Length--;
+        }
+
+        public void DeleteFirst()
+        {
+            if (Length == 0)
+            {
+                throw new Exception("The list is empty");
+            }
+            Node crnt = _root.Next;
+            _root=crnt;
+
+            Length--;
+
+        }
+
+        public void DeleteByIndex(int index)
+        {
+            if (Length == 0)
+            {
+                throw new Exception("The list is empty");
+            }
+            else if(index < 0 || index > Length - 1)
+            {
+                throw new IndexOutOfRangeException();
+            }
+            if (index == 0)
+            {
+                DeleteFirst();
+            }
+            else
+            {
+                Node crnt = _root;
+                for (int i = 1; i < index; i++)
+                {
+                    crnt = crnt.Next;
+                }
+                crnt.Next = crnt.Next.Next;
+            }
+            
+        }
+
+        public void DeleteFewLastElements(int amount)
+        {
+            if (Length == 0)
+            {
+                throw new Exception("The List is empty");
+            }
+            else if(amount>Length || amount<0)
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+            int tmpLength=Length-amount;
+            Node crnt = _root;
+            for(int i = 1; i <tmpLength; i++)
+            {
+                crnt = crnt.Next;
+            }
+            crnt.Next = null;
+            Length -= amount;
+
+        }
+
+        public void DeleteFewFirstElements(int amount)
+        {
+            if (Length == 0)
+            {
+                throw new Exception("The List is empty");
+            }
+            else if (amount > Length || amount < 0)
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+            if (amount != 0)
+            {
+                Node crnt = _root;
+                for (int i = 1; i < amount; i++)
+                {
+                    crnt = crnt.Next;
+                }
+                _root = crnt.Next;
+            } 
+        }
+        public void DeleteFewElementsByIndex(int index, int amount)
+        {
+            if (Length == 0)
+            {
+                throw new Exception("The List is empty");
+            }
+            else if (amount > Length || amount < 0)
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+            else if(index<0 || index > Length - 1)
+            {
+                throw new IndexOutOfRangeException();
+            }
+            if (amount != 0)
+            {
+                Node crnt = _root;
+                for (int i = 1; i < index; i++)
+                {
+                    crnt = crnt.Next;
+                }
+                int counterOfElements = Length - amount - index;
+                    if (counterOfElements > 0)
+                    {
+                    
+                    Node crntAfterDelete = crnt.Next;
+                    for (int i = index; i <= amount; i++)
+                    {
+                        crntAfterDelete = crntAfterDelete.Next;
+                    }
+                    crnt.Next = crntAfterDelete.Next;
+                    }
+                    else
+                    {
+                    crnt.Next = null;
+                    }
+                
+            }
         }
 
         public override string ToString()
