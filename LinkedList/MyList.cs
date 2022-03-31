@@ -334,6 +334,59 @@
             return minValue;
         }
 
+        public int FindIndexOfMinValue()
+        {
+            if( Length == 0)
+            {
+                throw new Exception("The list is empty");
+            }
+            int index = 0;
+            int minValue = _root.Value;
+            Node crnt = _root;
+            while (crnt != null)
+            {
+                if (minValue > crnt.Value)
+                {
+                    minValue = crnt.Value;
+                }
+                crnt=crnt.Next;
+            }
+            crnt = _root;
+            while (minValue != crnt.Value)
+            {
+                crnt = crnt.Next;
+                index++;
+            }
+            return index;
+        }
+
+        public int FindIndexOfMaxValue()
+        {
+            if (Length == 0)
+            {
+                throw new Exception("The list is empty");
+            }
+            int index = 0;
+            int maxValue = _root.Value;
+            Node crnt = _root;
+            while (crnt != null)
+            {
+                if (maxValue < crnt.Value)
+                {
+                    maxValue = crnt.Value;
+                }
+                crnt = crnt.Next;
+            }
+            crnt = _root;
+            while (maxValue != crnt.Value)
+            {
+                crnt = crnt.Next;
+                index++;
+            }
+            return index;
+        }
+
+
         public override string ToString()
         {
             string s = "";

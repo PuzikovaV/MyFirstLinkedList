@@ -218,6 +218,34 @@ namespace LinkedListTests
             Assert.Throws<Exception>(() => list.FindMinValue());
         }
 
+        [TestCaseSource(typeof(FindIndexOfMinValueTestSource))]
+        public void FindIndexOfMinValueTest(LList list, int expectedIndex)
+        {
+            int actualIndex = list.FindIndexOfMinValue();
+            Assert.AreEqual(expectedIndex,actualIndex);
+        }
+
+        [Test]
+        public void FindIndexOfMinValue_WhenListIsEmpty_ShouldExceptionTest()
+        {
+            LList list = new LList();
+            Assert.Throws<Exception>(() => list.FindIndexOfMinValue());
+        }
+
+        [TestCaseSource(typeof(FindIndexOfMaxValueTestSource))]
+        public void FindIndexOfMaxValueTest(LList list, int expecetedIndex)
+        {
+            int actualIndex=list.FindIndexOfMaxValue();
+            Assert.AreEqual(expecetedIndex,actualIndex);
+        }
+
+        [Test]
+        public void FindIndexOfMaxValue_WhenListIsEmpty_ShouldExceptionTest()
+        {
+            LList list = new LList();
+            Assert.Throws<Exception>(()=>list.FindIndexOfMaxValue());   
+        }
+
 
     }
 
