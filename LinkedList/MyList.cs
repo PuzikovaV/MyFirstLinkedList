@@ -230,7 +230,9 @@
                 }
                 _root = crnt.Next;
             } 
+            Length -= amount;
         }
+        
         public void DeleteFewElementsByIndex(int index, int amount)
         {
             if (Length == 0)
@@ -269,6 +271,47 @@
                     }
                 
             }
+            Length -= amount;
+        }
+
+        public int FindFirstIndexByValue(int value)
+        {
+            if (Length == 0)
+            {
+                throw new Exception("The list is empty");
+            }
+            int index = 0;
+            Node crnt = _root;
+            while(crnt!= null)
+            {
+                if (crnt.Value == value)
+                {
+                    return index;
+                }
+                crnt = crnt.Next;
+                index++;
+            }
+            return -1;
+        }
+
+        public int FindMaxValue()
+        {
+            if(Length == 0)
+            {
+                throw new Exception("The list is empty");
+            }
+
+            int maxValue = _root.Value;
+            Node crnt=_root;
+            while (crnt != null)
+            {
+                if (maxValue < crnt.Value)
+                {
+                    maxValue=crnt.Value;
+                }
+                crnt=crnt.Next;
+            }
+            return maxValue;
         }
 
         public override string ToString()

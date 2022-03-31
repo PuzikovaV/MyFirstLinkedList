@@ -176,6 +176,40 @@ namespace LinkedListTests
             Assert.AreEqual(expectedList,actualList);
             
         }
+        
+        [TestCaseSource(typeof(FindFirstIndexByValueTestSource))]
+        public void FindFirstIndexByValueTest(int value, LList list, int excpectedIndex)
+        {
+            int actualIndex= list.FindFirstIndexByValue(value);
+            Assert.AreEqual(excpectedIndex, actualIndex);
+        }
+
+        [TestCaseSource(typeof(WhenListIsEmptyWithAmountTestSource))]
+        public void FindFirstIndexByValue_WhenListIsEmpty_ShouldException(int value, LList list)
+        {
+            Assert.Throws<Exception>(() => list.FindFirstIndexByValue(value));
+        }
+
+        [TestCaseSource(typeof(FindMaxValueTestSource))]
+        public void FindMaxValueTest(LList list, int expectedMaxValue)
+        {
+            int actualMaxValue = list.FindMaxValue();
+            Assert.AreEqual(expectedMaxValue,actualMaxValue);
+        }
+
+        [Test]
+        public void FindMaxValue_WhenListIsEmpty_ShouldExceptionTest()
+        {
+            LList list = new LList();
+            Assert.Throws<Exception>(() => list.FindMaxValue());
+        }
+
+
     }
+
+
+
+
+    
     
 }
