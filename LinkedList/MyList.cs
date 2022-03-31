@@ -314,6 +314,26 @@
             return maxValue;
         }
 
+        public int FindMinValue()
+        {
+
+            if (Length == 0)
+            {
+                throw new Exception("The list is empty");
+            }
+            int minValue=_root.Value;
+            Node crnt = _root;
+            while (crnt != null)
+            {
+                if(minValue > crnt.Value)
+                {
+                    minValue=crnt.Value;
+                }
+                crnt = crnt.Next;
+            }
+            return minValue;
+        }
+
         public override string ToString()
         {
             string s = "";

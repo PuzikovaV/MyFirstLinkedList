@@ -16,7 +16,7 @@ namespace LinkedListTest.LinkedListTestSource
             yield return new object[] { list, expectedMaxValue};
 
             list = new LList(new int[] { 5, 99, 9, 99, 6 });
-            expectedMaxValue = 55;
+            expectedMaxValue = 99;
             yield return new object[] { list, expectedMaxValue };
         }
     }
