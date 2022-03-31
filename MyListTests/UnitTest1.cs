@@ -167,6 +167,15 @@ namespace LinkedListTests
             Assert.AreEqual(expectedValue,actualValue);
 
         }
+
+        [TestCaseSource(typeof(SetByIndexTestSource))]
+        public void SetByIndexTest(int index, int value, LList list, LList expectedList)
+        {
+            list[index] = value;
+            LList actualList = list;
+            Assert.AreEqual(expectedList,actualList);
+            
+        }
     }
     
 }
