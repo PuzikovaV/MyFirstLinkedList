@@ -246,6 +246,29 @@ namespace LinkedListTests
             Assert.Throws<Exception>(()=>list.FindIndexOfMaxValue());   
         }
 
+        [TestCaseSource(typeof(DeleteFirstByValueTestSource))]
+        public void DeleteFirstByValueTest(int value, LList list, LList expectedList, int expectedIndex)
+        {
+            int actualIndex = list.DeleteFirstByValue(value);
+            LList actualList = list;
+            Assert.AreEqual(expectedIndex, actualIndex);
+            Assert.AreEqual(expectedList, actualList);
+        }
+        
+        [TestCaseSource(typeof(WhenListIsEmptyWithValueTestSource))]
+        public void DeleteFirstByValue_WhenListIsEmpty_ShouldException(int value, LList list)
+        {
+            Assert.Throws<Exception>(() => list.DeleteFirstByValue(value));
+        }
+
+        [TestCaseSource(typeof(DeleteEveryElementByValueTestSource))]
+        public void DeleteEveryElementByValueTest(int value, LList list, LList expectedList, int expectedCount)
+        {
+            LList actualList = list;
+            int actualCount=list.DeleteEveryElementByValue(value);
+            Assert.AreEqual(expectedList, actualList);
+            Assert.AreEqual(expectedCount, actualCount);
+        }
 
     }
 

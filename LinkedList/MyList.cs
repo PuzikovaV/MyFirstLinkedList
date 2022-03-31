@@ -386,6 +386,43 @@
             return index;
         }
 
+        public int DeleteFirstByValue(int value)
+        {
+            int index = 0;
+            Node crnt = _root;
+            while(crnt != null)
+            {
+                if (value == crnt.Value)
+                {
+                    break;
+                }
+                crnt = crnt.Next;
+                index++;
+            }
+            DeleteByIndex(index);
+            return index;
+
+        }
+
+        public int DeleteEveryElementByValue(int value)
+        {
+            int count = 0;
+            Node crnt = _root;
+            while (crnt <3)
+            {
+                if (crnt.Next.Value == value)
+                {
+                    crnt = crnt.Next.Next;
+                    count++;
+                }
+                else
+                {
+                    crnt = crnt.Next;
+                }
+            }
+            return count;
+        }
+
 
         public override string ToString()
         {
