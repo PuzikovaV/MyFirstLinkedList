@@ -107,6 +107,7 @@ namespace LinkedListTests
         {
             Assert.Throws<Exception>(() => list.DeleteFewLastElements(amount));  
         }
+        
         [TestCaseSource(typeof(WhenAmountMoreOrLessThenLengthTestSource))]
         public void DleteFewLastElements_WhenAmountMoreOrLessThenLength_ShouldExceptionTest(int amount, LList list)
         {
@@ -139,6 +140,32 @@ namespace LinkedListTests
             list.DeleteFewElementsByIndex(index, amount);
             LList actualList=list;
             Assert.AreEqual(expectedList,actualList);
+        }
+
+        [TestCaseSource(typeof(WhenListIsEmptyWithAmountAndIndexTestSource))]
+        public void DeleteFewElementsByIndex_WhenListIsEmpty_ShouldExceptionTest(int index, int amount, LList list)
+        {
+            Assert.Throws<Exception>(() => list.DeleteFewElementsByIndex(index, amount));
+        }
+
+        [TestCaseSource(typeof(WhenAmountMoreOrLessThenLengthWithIndexTestSource))]
+        public void DeleteFewElementsByIndex_WhenAmountOutOfRange_ShouldExceptionTest(int index, int amount, LList list)
+        {
+            Assert.Throws<ArgumentOutOfRangeException>(() => list.DeleteFewElementsByIndex(index,amount));
+        }
+
+        [TestCaseSource(typeof(WhenIndexOutOfRangeWithAmountTestSource))]
+        public void DeleteFewElementsByIndex_WhenIndexOutOfRange_ShouldExceptionTest(int index, int amount, LList list)
+        {
+            Assert.Throws<IndexOutOfRangeException>(() => list.DeleteFewElementsByIndex(index, amount));
+        }
+
+        [TestCaseSource(typeof(GetByIndexTestSource))]
+        public void GetByIndexTest(int index, LList list, int expectedValue)
+        {
+            int actualValue=list[index];
+            Assert.AreEqual(expectedValue,actualValue);
+
         }
     }
     
