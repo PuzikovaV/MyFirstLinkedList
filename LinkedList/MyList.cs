@@ -481,6 +481,7 @@
 
             _tail = GetNodeByIndex(l - 1);
         }
+
         public void SortFromMaxToMin()
         {
             if (Length == 0)
@@ -540,6 +541,49 @@
             }
             _tail = oldRoot;
         }
+
+        public void AddListInTheEnd(LList list)
+        {
+            _tail.Next = list._root;
+            _tail = list._tail;
+            Length += list.Length;
+        }
+
+        public void AddListInTheStart(LList list)
+        {
+            list._tail.Next = _root;
+            _root = list._root;
+            Length+=list.Length;
+        }
+
+        public void AddListByIndex(LList list, int index)
+        {
+            if (Length == 0)
+            {
+                throw new Exception("The list is empty");
+            }
+
+            if(index<0 || index > Length - 1)
+            {
+                throw new IndexOutOfRangeException();
+            }
+            if (index == 0)
+            {
+                AddListInTheStart(list);
+            }
+            else
+            {
+                Node crnt = _root;
+                for (int i = 1; i <=index; i++)
+                {
+                    crnt = crnt.Next;
+                }
+                list._tail.Next = crnt.Next;
+                crnt.Next = list._root;
+            }
+            Length += list.Length;
+        }
+
         public override string ToString()
         {
             string s = "";
@@ -553,6 +597,7 @@
 
             return s;
         }
+
         public override bool Equals(object? obj)
         {
             if (obj == null || !(obj is LList))

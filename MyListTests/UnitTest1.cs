@@ -324,6 +324,45 @@ namespace LinkedListTests
             Assert.Throws<Exception>(()=>list.SortFromMaxToMin());  
         }
 
+        [TestCaseSource(typeof(AddListInTheEndTestSource))]
+        public void AddListInTheEndTest(LList list, LList extraList, LList expectedList)
+        {
+            list.AddListInTheEnd(extraList);
+            LList actualList = list;
+            Assert.AreEqual(expectedList, actualList);
+        }
+
+        [TestCaseSource(typeof(AddListInTheStartTestSource))]
+        public void AddListInTheStartTest(LList extraList, LList list, LList expectedList)
+        {
+            list.AddListInTheStart(extraList);
+            LList actualList = list;
+            Assert.AreEqual(expectedList, actualList);
+        }
+
+        [TestCaseSource(typeof(AddListByIndexTestSource))]
+        public void AddListByIndexTest(LList extraList, int index, LList list, LList expectedList)
+        {
+            list.AddListByIndex(extraList, index);
+            LList actualList = list;
+            Assert.AreEqual(expectedList, actualList);
+        }
+        [Test]
+        public void AddListByIndex_WhenListISEmpty_ShouldExceptionTest()
+        {
+            LList list= new LList();
+            LList extraList = new LList();
+            int index = 99;
+            Assert.Throws<Exception>(()=>list.AddListByIndex(extraList, index));    
+        }
+
+        public void AddListByIndex_WhenIndexOutOfRangeTest()
+        {
+            LList list = new LList(new int[] {4,5,6});
+            LList extraList = new LList(new int[] {8,7,9});
+            int index = 99;
+            Assert.Throws<IndexOutOfRangeException>(() => list.AddListByIndex(extraList, index));
+        }
 
     }
 
