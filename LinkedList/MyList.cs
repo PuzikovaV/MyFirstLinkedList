@@ -400,6 +400,7 @@
                 index++;
             }
             DeleteByIndex(index);
+
             return index;
 
         }
@@ -411,18 +412,28 @@
                 throw new Exception("The list is empty");
             }
             int count = 0;
+            int index = 0;
             Node crnt = _root;
             while (crnt!=null)
             {
-                if (crnt.Next.Value == value)
+                if (crnt.Value == value)
                 {
-                    crnt = crnt.Next.Next;
-                    count++;
+                    if (index == 0)
+                    {
+                        _root = crnt.Next;
+                        count++;
+                        index--;
+                    }
+                    else if (crnt.Value == value)
+                    {
+                        Node prev = GetNodeByIndex(index - 1);
+                        prev.Next = crnt.Next;
+                        count++;
+                        index--;
+                    }
                 }
-                else
-                {
-                    crnt = crnt.Next;
-                }
+                crnt = crnt.Next;
+                index++;
             }
             return count;
         }
@@ -485,6 +496,16 @@
             }
 
             return true;
+        }
+        private Node GetNodeByIndex(int index)
+        {
+            Node crnt = _root;
+            for (int i = 1; i <= index; i++)
+            {
+                crnt = crnt.Next;
+            }
+
+            return crnt;
         }
     }
 }

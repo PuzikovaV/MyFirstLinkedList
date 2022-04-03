@@ -265,9 +265,18 @@ namespace LinkedListTests
         public void DeleteEveryElementByValueTest(int value, LList list, LList expectedList, int expectedCount)
         {
             int actualCount = list.DeleteEveryElementByValue(value);
+            list.DeleteEveryElementByValue(value);
             LList actualList = list;
             Assert.AreEqual(expectedList, actualList);
             Assert.AreEqual(expectedCount, actualCount);
+        }
+
+        [Test]
+        public void DeleteEveryElementByValue_WhenListIsEmpty_ShouldThrowExceptionTest()
+        {
+            LList list = new LList();
+            int value = 5;
+            Assert.Throws<Exception>(()=>list.DeleteEveryElementByValue(value));    
         }
 
         [TestCaseSource(typeof(ReverseTestSource))]
