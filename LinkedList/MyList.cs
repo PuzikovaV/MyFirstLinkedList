@@ -406,9 +406,13 @@
 
         public int DeleteEveryElementByValue(int value)
         {
+            if (Length == 0)
+            {
+                throw new Exception("The list is empty");
+            }
             int count = 0;
             Node crnt = _root;
-            while (crnt <3)
+            while (crnt!=null)
             {
                 if (crnt.Next.Value == value)
                 {
@@ -423,7 +427,22 @@
             return count;
         }
 
-
+        public void Reverse()
+        {
+            if (Length == 0)
+            {
+                throw new Exception("The list is empty");
+            }
+            Node oldRoot = _root;
+            while(oldRoot.Next != null)
+            {
+                Node tmp = oldRoot.Next;
+                oldRoot.Next = oldRoot.Next.Next;
+                tmp.Next = _root;
+                _root = tmp;
+            }
+            _tail = oldRoot;
+        }
         public override string ToString()
         {
             string s = "";

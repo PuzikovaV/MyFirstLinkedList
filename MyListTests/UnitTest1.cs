@@ -264,12 +264,27 @@ namespace LinkedListTests
         [TestCaseSource(typeof(DeleteEveryElementByValueTestSource))]
         public void DeleteEveryElementByValueTest(int value, LList list, LList expectedList, int expectedCount)
         {
+            int actualCount = list.DeleteEveryElementByValue(value);
             LList actualList = list;
-            int actualCount=list.DeleteEveryElementByValue(value);
             Assert.AreEqual(expectedList, actualList);
             Assert.AreEqual(expectedCount, actualCount);
         }
 
+        [TestCaseSource(typeof(ReverseTestSource))]
+        public void ReverseTest(LList list, LList expectedList)
+        {
+            list.Reverse();
+            LList actualList = list;
+            Assert.AreEqual(expectedList,actualList);
+        }
+
+        [Test]
+        public void Reverse_WhenListIsEmpty_ShouldExceptionTest()
+        {
+            LList list = new LList();
+            Assert.Throws<Exception>(()=>list.Reverse());
+        }
+    
     }
 
 
