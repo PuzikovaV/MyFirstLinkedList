@@ -293,7 +293,38 @@ namespace LinkedListTests
             LList list = new LList();
             Assert.Throws<Exception>(()=>list.Reverse());
         }
-    
+
+        [TestCaseSource(typeof(SortFromMintoMaxTestSource))]
+        public void SortFromMintoMaxTest(LList list, LList expectedList)
+        {
+            list.SortFromMintoMax();
+            LList actualList = list;
+            Assert.AreEqual(expectedList, actualList);
+        }
+        
+        [Test]
+        public void SortFromMintoMax_WhenListIsEmpty_ShouldThrowExceptionTest()
+        {
+            LList list = new LList();
+            Assert.Throws<Exception>(() => list.SortFromMintoMax());
+        }
+
+        [TestCaseSource(typeof(SortFromMaxToMinTestSource))]
+        public void SortFromMaxToMinTest(LList list, LList expectedList)
+        {
+            list.SortFromMaxToMin();
+            LList actualList = list;
+            Assert.AreEqual(expectedList, actualList);
+        }
+
+        [Test]
+        public void SortFromMaxToMin_WhenListIsEmpty_ShouldExceptionTest()
+        {
+            LList list = new LList();
+            Assert.Throws<Exception>(()=>list.SortFromMaxToMin());  
+        }
+
+
     }
 
 
